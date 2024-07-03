@@ -1,5 +1,6 @@
 package org.example.chatroom.service;
 
+import org.springframework.web.socket.BinaryMessage;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 
@@ -110,4 +111,10 @@ public interface WebSocketService {
      * @return 会话
      */
     WebSocketSession getSessionById(String sessionId);
+
+    /**
+     * 中断连接
+     * @param sessionId 会话id
+     */
+    void closeSession(String sessionId);
 }

@@ -10,4 +10,5 @@ public class Friend_chat_history{
     private Integer receiver;
     private String content;
     private Date date;
+    private Integer type;
 }

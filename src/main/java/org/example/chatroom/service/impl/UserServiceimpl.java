@@ -12,14 +12,20 @@ public class UserServiceimpl implements UserService {
     @Resource
     UserMapper userMapper;
     @Override
+    public User queryUsername(String userId) {
+        return userMapper.queryUserByUsername(userId);
+    }
+
+    @Override
     public User login(Integer id, String password) {
         return userMapper.queryUserByUsernameAndPassword(id, password);
     }
 
     @Override
-    public User register(String username, String password) {
+    public User register(String username, String password,String headimg) {
         User u = new User(username,password);
         userMapper.saveUser(u);
+        userMapper.setUserHeadimg(u.getId(),headimg);
         if(u.getId() != null) return u;
         else return null;
     }

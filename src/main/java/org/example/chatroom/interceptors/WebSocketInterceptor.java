@@ -25,7 +25,8 @@ public class WebSocketInterceptor implements HandshakeInterceptor {
         if (request instanceof ServletServerHttpRequest) {
             ServletServerHttpRequest servletServerHttpRequest = (ServletServerHttpRequest) request;
             // 模拟用户（通常利用JWT令牌解析用户信息）
-            String user = servletServerHttpRequest.getServletRequest().getHeader("token");
+            String user = servletServerHttpRequest.getServletRequest().getParameter("token");
+            log.info("用户令牌：" + user);
             // TODO 判断用户是否存在
             try {
                 Map<String, Object> M = JWTUtil.ParseTokens(user);
@@ -34,7 +35,7 @@ public class WebSocketInterceptor implements HandshakeInterceptor {
                 return true;
             } catch (Exception e) {
                 response.setStatusCode(HttpStatusCode.valueOf(401));
-                log.info("令牌验证失败");
+                log.info("建立连接令牌验证失败");
                 return false;
             }
         }

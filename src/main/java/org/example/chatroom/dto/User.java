@@ -13,6 +13,8 @@ public class User {
     private String username;
     private String password;
     private Date date;
+    private String headimg;
+
 
     public User(String username, String password) {
         this.username = username;

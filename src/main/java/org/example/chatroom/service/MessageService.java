@@ -10,7 +10,7 @@ public interface MessageService {
      * @param content 聊天内容
      * @param date 日期
      */
-    void addFriendChatHistory(Integer userId, Integer friendId, String content, Date date);
+    void addFriendChatHistory(Integer userId, Integer friendId, String content, Date date, Integer type);
 
     /**
      * 添加群聊天记录
@@ -19,5 +19,5 @@ public interface MessageService {
      * @param content 聊天内容
      * @param date 日期
      */
-    void addGroupChatHistory(Integer userId, Integer groupId, String content,Date date);
+    void addGroupChatHistory(Integer userId, Integer groupId, String content,Date date, Integer type, String username, String headimg);
 }

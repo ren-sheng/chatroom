@@ -24,6 +24,13 @@ public interface FriendChatMapper {
             """)
     Friend_chat_history[] getFriendHistory(Friend friend);
 
+    //查询是否存在好友关系
+    @Select("""
+            select * from friend
+            where id = #{id} and friend = #{friend}
+            """)
+    Friend isFriend(Friend friend);
+
     //添加好友
     @Insert("""
             insert into friend(id, friend, date)

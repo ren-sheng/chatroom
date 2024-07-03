@@ -13,12 +13,19 @@ public interface FriendChatService {
      */
     User[] getFriends(Integer id);
 
+    /**
+     * 查询是否存在好友关系
+     * @param id 用户id
+     * @param friendId 好友id
+     * @return 是否存在好友关系
+     */
+    boolean isFriend(Integer id, Integer friendId);
 
 
     /**
      * 获取好友聊天历史记录
      *
-     * @param id 用户id
+     * @param id       用户id
      * @param friendId 好友id
      * @return 好友聊天历史记录
      */
@@ -26,16 +33,18 @@ public interface FriendChatService {
 
     /**
      * 添加好友
-     * @param id 用户id
+     *
+     * @param id       用户id
      * @param friendId 好友id
-     * @param date 日期
+     * @param date     日期
      * @return 是否添加成功
      */
     boolean addFriend(Integer id, Integer friendId, Date date);
 
     /**
      * 删除好友
-     * @param id 用户id
+     *
+     * @param id       用户id
      * @param friendId 好友id
      * @return 是否删除成功
      */

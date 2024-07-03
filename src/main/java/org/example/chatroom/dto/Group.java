@@ -11,4 +11,5 @@ public class Group {
     private Integer owner;
     private Integer number;
     private Date date;
+    private String headimg;
 }

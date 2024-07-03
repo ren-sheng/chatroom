@@ -31,6 +31,14 @@ public class FriendChatServiceimpl implements FriendChatService {
     }
 
     @Override
+    public boolean isFriend(Integer id, Integer friendId) {
+        Friend friend = new Friend();
+        friend.setId(id);
+        friend.setFriend(friendId);
+        return chatMapper.isFriend(friend) != null;
+    }
+
+    @Override
     public boolean addFriend(Integer id, Integer friendId, Date date) {
         Friend friend = new Friend();
         friend.setId(id);

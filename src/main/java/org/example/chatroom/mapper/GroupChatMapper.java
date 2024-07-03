@@ -8,6 +8,22 @@ import org.example.chatroom.dto.User;
 
 @Mapper
 public interface GroupChatMapper {
+    //查询群组
+    @Select("""
+            select *
+            from `group`
+            where id = #{id}
+            """)
+    Group getGroup(Group group);
+
+    //查询是否存在群组关系
+    @Select("""
+            select * from groupmember
+            where id = #{id} and groupid = #{groupid}
+            """)
+    Groupmember isGroupMember(Groupmember groupmember);
+
+
     //查询群组列表
     @Select("""
             select *

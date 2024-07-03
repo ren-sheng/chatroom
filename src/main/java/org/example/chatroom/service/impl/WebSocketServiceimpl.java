@@ -1,19 +1,16 @@
 package org.example.chatroom.service.impl;
 
-import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
-import org.example.chatroom.dto.User;
-import org.example.chatroom.service.GroupChatService;
 import org.example.chatroom.service.WebSocketService;
 import org.springframework.stereotype.Service;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 
 import java.io.IOException;
-import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.concurrent.atomic.AtomicInteger;
+
 
 @Slf4j
 @Service
@@ -21,12 +18,12 @@ public class WebSocketServiceimpl implements WebSocketService {
     /**
      * 在线连接数（线程安全）
      */
-    private final AtomicInteger connectionCount = new AtomicInteger(0);
+    private static final AtomicInteger connectionCount = new AtomicInteger(0);
 
     /**
      * 线程安全的无序集合（存储会话）
      */
-    private final CopyOnWriteArraySet<WebSocketSession> sessions = new CopyOnWriteArraySet<>();
+    private static final CopyOnWriteArraySet<WebSocketSession> sessions = new CopyOnWriteArraySet<>();
 
     @Override
     public void handleOpen(WebSocketSession session) {
@@ -67,8 +64,12 @@ public class WebSocketServiceimpl implements WebSocketService {
 //            userSession.get().sendMessage(message);
 //        }
         WebSocketSession session = getSessionById(sessionId);
+        //log.info("session id: " + sessionId);
         if (session != null) {
             session.sendMessage(message);
+        }
+        else {
+            log.info("离线消息"+ message.getPayload());
         }
     }
 
@@ -114,9 +115,26 @@ public class WebSocketServiceimpl implements WebSocketService {
 
     @Override
     public WebSocketSession getSessionById(String sessionId) {
-        return sessions.stream()
-                .filter(session -> sessionId.equals(session.getId()))
-                .findFirst()
-                .orElse(null);
+        try {
+            return sessions.stream()
+                    .filter(session -> sessionId.equals(session.getId()))
+                    .findFirst()
+                    .orElse(null);
+        } catch (NullPointerException e) {
+            return null;
+        }
+    }
+
+    //中断连接
+    @Override
+    public void closeSession(String sessionId) {
+        WebSocketSession session = getSessionById(sessionId);
+        if (session != null) {
+            try {
+                session.close();
+            } catch (IOException e) {
+                log.error("关闭会话异常", e);
+            }
+        }
     }
 }

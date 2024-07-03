@@ -10,4 +10,7 @@ public class Group_chat_history {
     private Integer sender;
     private String content;
     private Date date;
+    private Integer type;
+    private String headimg;
+    private String username;
 }

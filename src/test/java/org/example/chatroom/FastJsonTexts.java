@@ -27,8 +27,15 @@ public class FastJsonTexts {
     //获取JSON中的某个字段(先转化为对应Message对象)
     @Test
     void getField() {
-        String jsonString = "{\"sender\":1,\"receiver\":2,\"content\":\"Hello\",\"time\":\"01-01-2021 00:00:00\"}";
+        String jsonString = "{\"sender\":1,\"receiver\":2,\"content\":\"Hello\",\"date\":\"01-01-2021 00:00:00\",\"type\":0}";
         Message message = FastJsonUtil.parseObject(jsonString, Message.class);
         System.out.println(message.getContent());
+    }
+
+
+    @Test
+    void Stringtext(){
+        String a="\n";
+        System.out.println(a);
     }
 }

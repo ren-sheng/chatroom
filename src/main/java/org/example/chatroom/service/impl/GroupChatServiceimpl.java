@@ -17,6 +17,14 @@ public class GroupChatServiceimpl implements GroupChatService {
     GroupChatMapper chatMapper;
 
     @Override
+    public Group getGroup(Integer id) {
+        Group group = new Group();
+        group.setId(id);
+        return chatMapper.getGroup(group);
+    }
+
+
+    @Override
     public Group[] getGroups(Integer id) {
         User user = new User();
         user.setId(id);
@@ -28,6 +36,14 @@ public class GroupChatServiceimpl implements GroupChatService {
         Group group = new Group();
         group.setId(group_id);
         return chatMapper.getGroupMembers(group);
+    }
+
+    @Override
+    public boolean isGroupMember(Integer id, Integer group_id) {
+        Groupmember groupmember = new Groupmember();
+        groupmember.setId(id);
+        groupmember.setGroupid(group_id);
+        return chatMapper.isGroupMember(groupmember) != null;
     }
 
     @Override

@@ -8,6 +8,13 @@ import java.util.Date;
 
 public interface GroupChatService {
     /**
+     * 群组号查询群组
+     * @param id 群组号
+     * @return 群组
+     */
+    Group getGroup(Integer id);
+
+    /**
      * 获取群组列表
      *
      * @param id 用户信息
@@ -30,6 +37,14 @@ public interface GroupChatService {
      * @return 群聊天历史记录
      */
     Group_chat_history[] getGroupHistory(Integer group_id);
+
+    /**
+     * 查询是否存在群组关系
+     * @param id 用户id
+     * @param group_id 群组id
+     * @return 是否存在群组关系
+     */
+    boolean isGroupMember(Integer id, Integer group_id);
 
     /**
      * 添加群组
